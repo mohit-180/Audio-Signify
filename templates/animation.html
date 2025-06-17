@@ -1,0 +1,379 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Container flex for layout */
+  .container-split {
+    display: flex;
+    height: calc(100vh - 48px);
+    gap: 24px;
+    padding: 0 24px 24px 24px;
+  }
+  .left-panel,
+  .right-panel {
+    flex: 1;
+    background: rgba(254, 218, 106, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(254, 218, 106, 0.15);
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #feda6a;
+    font-weight: 700;
+  }
+
+  /* Form layout: flex to horizontally align elements */
+  form.form-style {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .mytext {
+    flex-grow: 1;
+    height: 40px;
+    border: 1.5px solid #feda6a;
+    border-radius: 12px 0 0 12px;
+    padding: 0 16px;
+    font-size: 1rem;
+    color: #2a2d37;
+    background: white;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .mytext:focus {
+    border-color: #ffd54f;
+    box-shadow: 0 0 8px #ffd54f;
+  }
+
+  .mic.icon-button {
+    background: #feda6a;
+    border: none;
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 0 12px 12px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+  .mic.icon-button:hover,
+  .mic.icon-button:focus-visible {
+    background-color: #ffd54f;
+    outline-offset: 2px;
+    outline: 2px solid #fff08c;
+  }
+  .mic.icon-button img {
+    vertical-align: middle;
+  }
+
+  input.submit.primary-btn {
+    background: #feda6a;
+    color: #2a2d37;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(254, 218, 106, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    height: 40px;
+    flex-shrink: 0;
+  }
+  input.submit.primary-btn:hover,
+  input.submit.primary-btn:focus-visible {
+    background-color: #ffd54f;
+    outline-offset: 2px;
+    outline: 2px solid #fff08c;
+    transform: translateY(-2px);
+  }
+  input.submit.primary-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Keywords list - no animations */
+  ul#list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    justify-content: center;
+  }
+  ul#list li {
+    background: #feda6a;
+    color: #2a2d37;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 6px 14px;
+    border-radius: 12px;
+    transition: none !important;
+  }
+  ul#list li:hover,
+  ul#list li:focus,
+  ul#list li:active,
+  ul#list li:focus-visible {
+    background: #feda6a !important;
+    color: #2a2d37 !important;
+    cursor: default;
+    box-shadow: none !important;
+  }
+
+  /* Play/Pause button style */
+  .play-pause-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .play-pause-container button.primary-btn {
+    font-size: 1rem;
+    padding: 12px 28px;
+    background: #feda6a;
+    color: #2a2d37;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(254, 218, 106, 0.4);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .play-pause-container button.primary-btn:hover,
+  .play-pause-container button.primary-btn:focus-visible {
+    background-color: #ffd54f;
+    outline-offset: 2px;
+    outline: 2px solid #fff08c;
+    transform: translateY(-2px);
+  }
+  .play-pause-container button.primary-btn:active {
+    transform: translateY(0);
+  }
+  .play-pause-container button.primary-btn .material-icons {
+    vertical-align: middle;
+  }
+
+  /* Video styling */
+  video#videoPlayer {
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(254, 218, 106, 0.35);
+    max-width: 100%;
+    height: auto;
+    outline: none;
+  }
+
+  /* Left and right panel styles */
+  .left-panel,
+  .right-panel {
+    flex: 1;
+    background: rgba(254, 218, 106, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(254, 218, 106, 0.15);
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container-split {
+      flex-direction: column;
+      height: auto;
+      gap: 36px;
+      padding: 16px;
+    }
+    .left-panel,
+    .right-panel {
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(254, 218, 106, 0.15);
+    }
+
+    form.form-style {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .mytext {
+      flex-grow: 1;
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .mic.icon-button,
+    input.submit.primary-btn {
+      flex-shrink: 0;
+      height: 48px;
+      border-radius: 12px;
+      padding: 0 18px;
+      width: auto;
+    }
+    
+    input.submit.primary-btn {
+      width: 100%;
+      margin: 0;
+    }
+    
+    .play-pause-container button.primary-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="container-split" role="main" aria-label="Speech to sign language conversion interface">
+  <section class="left-panel" aria-labelledby="left-section-title">
+    <h2 id="left-section-title">Enter Text or Use Mic</h2>
+
+    <form action="" method="post" class="form-style" aria-label="Speech to text input form">
+      {% csrf_token %}
+      <input
+        type="text"
+        name="sen"
+        class="mytext"
+        id="speechToText"
+        placeholder="Enter text here"
+        aria-required="true"
+        aria-describedby="input-desc"
+      />
+      <button
+        type="button"
+        name="button"
+        class="mic icon-button"
+        onclick="record()"
+        aria-label="Start speech recognition"
+        title="Start speech recognition"
+      >
+        <img
+          src="{% static 'mic3.png' %}"
+          height="32"
+          width="38"
+          alt="Microphone icon"
+          loading="lazy"
+        />
+      </button>
+      <input
+        type="submit"
+        name="submit"
+        class="submit primary-btn"
+        aria-label="Submit text for conversion"
+        value="Submit"
+      />
+    </form>
+
+    <table cellspacing="20px" aria-label="Speech input results table">
+      <tr>
+        <td class="td">The text that you entered is:</td>
+        <td class="td">{{ text }}</td>
+      </tr>
+      <tr>
+        <td class="td">Key words in sentence:</td>
+        <td class="td">
+          <ul id="list" aria-label="List of keywords">
+            {% for word in words %}
+              <li id="{{ i }}">{{ word }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="right-panel" aria-labelledby="right-section-title">
+    <h2 id="right-section-title" style="margin-bottom: 12px;">Sign Language Animation</h2>
+
+    <div class="play-pause-container">
+      <button
+        class="primary-btn"
+        onclick="playPause()"
+        aria-label="Play or pause sign language animation"
+      >
+        <span class="material-icons" aria-hidden="true">play_arrow</span>
+        Play/Pause
+      </button>
+    </div>
+
+    <video
+      id="videoPlayer"
+      width="600"
+      height="350"
+      preload="auto"
+      autoplay
+      aria-label="Sign language animation video"
+      controlslist="nodownload"
+      muted
+    >
+      <source src="" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video>
+  </section>
+</div>
+
+<script>
+  function record() {
+    var recognition = new webkitSpeechRecognition();
+    recognition.lang = "en-IN";
+    recognition.onresult = function (event) {
+      document.getElementById("speechToText").value =
+        event.results[0][0].transcript;
+    };
+    recognition.start();
+  }
+
+  function play() {
+    var videoSource = [];
+    var videos = document.getElementById("list").getElementsByTagName("li");
+    for (var j = 0; j < videos.length; j++) {
+      videoSource[j] = "/static/" + videos[j].innerHTML + ".mp4";
+    }
+    var i = 0;
+    var videoCount = videoSource.length;
+    function videoPlay(videoNum) {
+      var listItems = document.getElementById("list").getElementsByTagName("li");
+      for (var k = 0; k < listItems.length; k++) {
+        listItems[k].style.color = "#feda6a";
+        listItems[k].style.fontSize = "20px";
+      }
+      listItems[videoNum].style.color = "#09edc7";
+      listItems[videoNum].style.fontSize = "xx-large";
+      var videoPlayer = document.getElementById("videoPlayer");
+      videoPlayer.setAttribute("src", videoSource[videoNum]);
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+    var videoPlayer = document.getElementById("videoPlayer");
+    videoPlayer.addEventListener("ended", myHandler, false);
+    videoPlay(0);
+    function myHandler() {
+      i++;
+      if (i === videoCount) {
+        videoPlayer.pause();
+        return;
+      }
+      videoPlay(i);
+    }
+  }
+
+  function playPause() {
+    var videoPlayer = document.getElementById("videoPlayer");
+    if (videoPlayer.paused) {
+      play();
+    } else {
+      videoPlayer.pause();
+    }
+  }
+</script>
+{% endblock %}
