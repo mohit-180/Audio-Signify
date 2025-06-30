@@ -7,24 +7,25 @@
   .container-split {
     display: flex;
     height: calc(100vh - 48px);
-    gap: 24px;
-    padding: 0 24px 24px 24px;
+    gap: 32px;
+    padding: 0 48px 48px 48px;
   }
   .left-panel,
   .right-panel {
     flex: 1;
-    background: rgba(254, 218, 106, 0.05);
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(254, 218, 106, 0.15);
-    padding: 24px 32px;
+    background: #f8fafc;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.10);
+    padding: 40px 40px;
     display: flex;
     flex-direction: column;
     overflow: auto;
+    min-width: 420px;
   }
   h2 {
     text-align: center;
     margin-bottom: 24px;
-    color: #feda6a;
+    color: #3b82f6;
     font-weight: 700;
   }
 
@@ -32,14 +33,15 @@
   form.form-style {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 8px; /* Change from 0 to 8px */
+    margin-bottom: 32px;
+    width: 100%;
   }
 
   .mytext {
-    flex-grow: 1;
-    height: 40px;
-    border: 1.5px solid #feda6a;
+    flex: 2 1 0;
+    height: 48px;
+    border: 1.5px solid #3b82f6;
     border-radius: 12px 0 0 12px;
     padding: 0 16px;
     font-size: 1rem;
@@ -47,87 +49,110 @@
     background: white;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    min-width: 0;
   }
   
   .mytext:focus {
-    border-color: #ffd54f;
-    box-shadow: 0 0 8px #ffd54f;
+    border-color: #2563eb;
+    box-shadow: 0 0 8px #3b82f6;
   }
 
   .mic.icon-button {
-    background: #feda6a;
+    background: #3b82f6;
     border: none;
-    height: 40px;
-    padding: 0 14px;
-    border-radius: 0 12px 12px 0;
+    height: 48px;
+    width: 48px;
+    padding: 0;
+    border-radius: 12px; /* Rounded square */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+    border: 1.5px solid #3b82f6;
+    margin-right: 8px;
+  }
+  .mic.icon-button img {
+    filter: invert(1) brightness(2) hue-rotate(180deg);
+    width: 28px;
+    height: 28px;
   }
   .mic.icon-button:hover,
   .mic.icon-button:focus-visible {
-    background-color: #ffd54f;
+    background-color: #2563eb;
     outline-offset: 2px;
-    outline: 2px solid #fff08c;
+    outline: 2px solid #bcd7fa;
   }
-  .mic.icon-button img {
-    vertical-align: middle;
-  }
-
   input.submit.primary-btn {
-    background: #feda6a;
-    color: #2a2d37;
+    background: #3b82f6;
+    color: #fff;
     border: none;
-    border-radius: 12px;
-    padding: 12px 28px;
+    border-radius: 12px; /* Rounded square */
+    width: 100px;        /* Wider for text */
+    height: 48px;
+    padding: 0;
     font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(254, 218, 106, 0.4);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.10);
     transition: background-color 0.3s ease, transform 0.2s ease;
-    height: 40px;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
   }
   input.submit.primary-btn:hover,
   input.submit.primary-btn:focus-visible {
-    background-color: #ffd54f;
+    background-color: #2563eb;
     outline-offset: 2px;
-    outline: 2px solid #fff08c;
+    outline: 2px solid #bcd7fa;
     transform: translateY(-2px);
   }
   input.submit.primary-btn:active {
     transform: translateY(0);
   }
 
-  /* Keywords list - no animations */
+  /* Info row for text and keywords */
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .info-block {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .info-label {
+    font-weight: 600;
+    color: #3b82f6;
+    margin-bottom: 4px;
+    font-size: 1rem;
+    display: block;
+  }
+  .info-value {
+    font-size: 1rem;
+    color: #22223b;
+    word-break: break-word;
+  }
   ul#list {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
     margin: 0;
     padding-left: 0;
     list-style: none;
-    justify-content: center;
   }
   ul#list li {
-    background: #feda6a;
-    color: #2a2d37;
+    background: #e0e7ff;
+    color: #3b82f6;
     font-weight: 700;
     font-size: 1rem;
     padding: 6px 14px;
     border-radius: 12px;
-    transition: none !important;
-  }
-  ul#list li:hover,
-  ul#list li:focus,
-  ul#list li:active,
-  ul#list li:focus-visible {
-    background: #feda6a !important;
-    color: #2a2d37 !important;
-    cursor: default;
-    box-shadow: none !important;
   }
 
   /* Play/Pause button style */
@@ -138,10 +163,10 @@
   .play-pause-container button.primary-btn {
     font-size: 1rem;
     padding: 12px 28px;
-    background: #feda6a;
-    color: #2a2d37;
+    background: #3b82f6;
+    color: #fff;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(254, 218, 106, 0.4);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.10);
     border: none;
     cursor: pointer;
     display: inline-flex;
@@ -152,9 +177,9 @@
   }
   .play-pause-container button.primary-btn:hover,
   .play-pause-container button.primary-btn:focus-visible {
-    background-color: #ffd54f;
+    background-color: #2563eb;
     outline-offset: 2px;
-    outline: 2px solid #fff08c;
+    outline: 2px solid #bcd7fa;
     transform: translateY(-2px);
   }
   .play-pause-container button.primary-btn:active {
@@ -167,7 +192,7 @@
   /* Video styling */
   video#videoPlayer {
     border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(254, 218, 106, 0.35);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.10);
     max-width: 100%;
     height: auto;
     outline: none;
@@ -177,59 +202,50 @@
   .left-panel,
   .right-panel {
     flex: 1;
-    background: rgba(254, 218, 106, 0.05);
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(254, 218, 106, 0.15);
-    padding: 24px 32px;
+    background: #f8fafc;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.10);
+    padding: 40px 40px;
     display: flex;
     flex-direction: column;
     overflow: auto;
+    min-width: 420px;
   }
 
   /* Responsive */
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     .container-split {
       flex-direction: column;
       height: auto;
       gap: 36px;
-      padding: 16px;
+      padding: 24px;
     }
     .left-panel,
     .right-panel {
       width: 100%;
-      padding: 16px;
+      padding: 24px;
       border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(254, 218, 106, 0.15);
+      min-width: 0;
     }
-
+  }
+  @media (max-width: 700px) {
+    .container-split {
+      padding: 8px;
+      gap: 16px;
+    }
+    .left-panel,
+    .right-panel {
+      padding: 8px;
+      border-radius: 10px;
+    }
     form.form-style {
-      flex-wrap: wrap;
-      gap: 12px;
+      flex-direction: column;
+      gap: 8px;
     }
-
-    .mytext {
-      flex-grow: 1;
+    .mytext, .mic.icon-button, input.submit.primary-btn {
+      border-radius: 12px !important;
       width: 100%;
-      border-radius: 12px;
-      margin-bottom: 12px;
-    }
-
-    .mic.icon-button,
-    input.submit.primary-btn {
-      flex-shrink: 0;
-      height: 48px;
-      border-radius: 12px;
-      padding: 0 18px;
-      width: auto;
-    }
-    
-    input.submit.primary-btn {
-      width: 100%;
-      margin: 0;
-    }
-    
-    .play-pause-container button.primary-btn {
-      width: 100%;
+      min-width: 0;
     }
   }
 </style>
@@ -259,8 +275,6 @@
       >
         <img
           src="{% static 'mic3.png' %}"
-          height="32"
-          width="38"
           alt="Microphone icon"
           loading="lazy"
         />
@@ -274,22 +288,22 @@
       />
     </form>
 
-    <table cellspacing="20px" aria-label="Speech input results table">
-      <tr>
-        <td class="td">The text that you entered is:</td>
-        <td class="td">{{ text }}</td>
-      </tr>
-      <tr>
-        <td class="td">Key words in sentence:</td>
-        <td class="td">
-          <ul id="list" aria-label="List of keywords">
+    <div class="info-row">
+      <div class="info-block">
+        <span class="info-label">The text you entered is:</span>
+        <span class="info-value">{{ text }}</span>
+      </div>
+      <div class="info-block">
+        <span class="info-label">Key words in sentence:</span>
+        <span class="info-value">
+          <ul id="list" aria-label="List of keywords" style="margin:0;">
             {% for word in words %}
               <li id="{{ i }}">{{ word }}</li>
             {% endfor %}
           </ul>
-        </td>
-      </tr>
-    </table>
+        </span>
+      </div>
+    </div>
   </section>
 
   <section class="right-panel" aria-labelledby="right-section-title">
@@ -344,7 +358,7 @@
     function videoPlay(videoNum) {
       var listItems = document.getElementById("list").getElementsByTagName("li");
       for (var k = 0; k < listItems.length; k++) {
-        listItems[k].style.color = "#feda6a";
+        listItems[k].style.color = "#3b82f6";
         listItems[k].style.fontSize = "20px";
       }
       listItems[videoNum].style.color = "#09edc7";
